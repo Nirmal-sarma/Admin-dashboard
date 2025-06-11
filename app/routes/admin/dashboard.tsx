@@ -1,13 +1,13 @@
 import { StatsCard, TripCard } from 'components'
 import Header from 'components/Header'
 import React from 'react'
-import { allTrips, users,dashboardStats } from '~/constants'
+import { allTrips, user,dashboardStats } from '~/constants'
 
 const dashboard = () => {
   return (
     <main className='dashboard wrapper'>
       <Header
-        title={`Welcome ${users?.name ?? 'Guest'}`}
+        title={`Welcome ${user?.name ?? 'Guest'}`}
         description="Track activity,trends and popular destination"
       />
       <section className='flex flex-col gap-6'>
@@ -40,15 +40,15 @@ const dashboard = () => {
           Created Trips
         </h1>
         <div className='trip-grid'>
-          {allTrips.slice(0,4).map((trip)=>(
+          {allTrips.slice(0,4).map(({id,name,imageUrls,itinerary,tags,travelStyle,estimatedPrice})=>(
               <TripCard
-               key={trip.id}
-               id={trip.id.toString()}
-               name={trip.name}
-               imageUrl={trip.imageUrls[0]}
-               location={trip.itinerary?.[0]?.location ?? ''}
-               tags={trip.tags}
-               price={trip.estimatedPrice}
+               key={id}
+               id={id.toString()}
+               name={name}
+               imageUrl={imageUrls[0]}
+               location={itinerary?.[0]?.location ?? ''}
+               tags={tags}
+               price={estimatedPrice}
 
                />
           ))}
