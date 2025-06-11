@@ -128,7 +128,7 @@ export const getExistingUser=async (id:string)=>{
         );
         return total > 0? documents[0]:null;
     }catch(error){
-        console.error("getExistingUser error",e);
+        console.error("getExistingUser error",error);
         return null;
     }
 }
