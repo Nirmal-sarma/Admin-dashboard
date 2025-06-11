@@ -36,7 +36,7 @@ export const getUser=async ()=>{
 
 export const logoutUser=async ()=>{
     try{
-        await account.deleteSession("current");
+        await account.deleteSession('current');
     }catch(e){
          console.log('logoutUser error',e);
     }

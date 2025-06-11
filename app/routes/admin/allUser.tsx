@@ -6,7 +6,7 @@ const allUser = () => {
     <main className='dashboard wrapper'>
       <Header
             title="Trips pages"
-            decription="Track activity,trends and popular destination"
+            description="Track activity,trends and popular destination"
       />
        dashboard page content
     </main>

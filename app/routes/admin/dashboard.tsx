@@ -1,9 +1,17 @@
 import { StatsCard, TripCard } from 'components'
 import Header from 'components/Header'
 import React from 'react'
+import { getUser } from '~/appwrite/auth'
 import { allTrips, user,dashboardStats } from '~/constants'
+import type { Route } from './+types/dashboard'
+import { useLoaderData } from 'react-router'
 
-const dashboard = () => {
+export const clientLoader = async () => await getUser();
+
+const Dashboard = ({ loaderData } : Route.ComponentProps) => {
+  const user = loaderData as User | null;
+  // const user=useLoaderData<typeof clientLoader>();
+
   return (
     <main className='dashboard wrapper'>
       <Header
@@ -20,7 +28,7 @@ const dashboard = () => {
 
           />
           <StatsCard
-            headerTitle="Total Users"
+            headerTitle="Total Trips"
             total={dashboardStats.totalTrips}
             currentMonthCount={dashboardStats.tripsCreated.currentMonth}
             lastMonthCount={dashboardStats.tripsCreated.lastMonth}
@@ -58,4 +66,4 @@ const dashboard = () => {
   )
 }
 
-export default dashboard
+export default Dashboard
