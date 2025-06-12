@@ -29,6 +29,7 @@ export const getUser=async ()=>{
             Query.select(['name','email','imageUrl','joinedAt','accountId'])
         ]
        )
+      return documents.length > 0 ? documents[0] : redirect("/signIn");
     }catch(e){
         console.log("getUser error",e);
     }
@@ -130,5 +131,21 @@ export const getExistingUser=async (id:string)=>{
     }catch(error){
         console.error("getExistingUser error",error);
         return null;
+    }
+}
+export const getAllUsers=async(limit: number,offset:number)=>{
+    try {
+        const {documents: users,total} =await database.listDocuments(
+            appwriteConfig.databaseId,
+            appwriteConfig.userCollectionId,
+            [Query.limit(limit),Query.offset(offset)]
+        )
+
+        if(total === 0) return {users: [],total};
+
+        return {users,total};
+    } catch (error) {
+        console.log('Error fetching users');
+        return {users:[],total:0};
     }
 }

@@ -4,13 +4,15 @@ import React from 'react'
 import { getUser } from '~/appwrite/auth'
 import { allTrips, user,dashboardStats } from '~/constants'
 import type { Route } from './+types/dashboard'
-import { useLoaderData } from 'react-router'
+import { useLoaderData } from 'react-router';
 
 export const clientLoader = async () => await getUser();
 
 const Dashboard = ({ loaderData } : Route.ComponentProps) => {
-  const user = loaderData as User | null;
-  // const user=useLoaderData<typeof clientLoader>();
+
+  // throw new Error("some error thrown in a dashboard");
+
+  const user=loaderData as unknown as User | null;
 
   return (
     <main className='dashboard wrapper'>
