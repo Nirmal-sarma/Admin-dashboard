@@ -1,5 +1,6 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { ID } from "appwrite";
+import { console } from "node:inspector/promises";
 import { data, type ActionFunctionArgs } from "react-router";
 import { appwriteConfig, database } from "~/appwrite/client";
 import { parseMarkdownToJson } from "~/lib/utils";
@@ -74,11 +75,14 @@ export const action = async ({ request }: ActionFunctionArgs) => {
         const trip = parseMarkdownToJson(textResult.response.text());
 
         const imageResponse = await fetch(
-            `https://api.unsplash.com/search/photos?query=${country}${interests}${travelStyle}&client_id=${unsplashApiKey}`
+            `https://api.unsplash.com/search/photos?query=${country},${interests},${travelStyle}&client_id=${unsplashApiKey}`
         );
 
-        const imageUrl = (await imageResponse.json()).results.slice(0, 3)
-            .map((result: any) => result.urls?.regular || null);
+
+        const imageJson = await imageResponse.json();
+
+        const imageUrl = imageJson.results?.slice(0, 3)
+            .map((result: any) => result.urls?.regular || null) || [];
 
         const result = await database.createDocument(
             appwriteConfig.databaseId,
@@ -91,7 +95,6 @@ export const action = async ({ request }: ActionFunctionArgs) => {
                 userId,
             }
         )
-
         return new Response(JSON.stringify({ id: result?.$id }), {
             status: 200,
             headers: { "Content-Type": "application/json" }

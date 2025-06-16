@@ -69,7 +69,6 @@ const CreateTrip = ({ loaderData }: Route.ComponentProps ) => {
        }
 
        try {
-        console.log("It is running....")
            const response = await fetch('/api/create-trip', {
                method: 'POST',
                headers: {'Content-Type': 'application/json'},
@@ -85,7 +84,6 @@ const CreateTrip = ({ loaderData }: Route.ComponentProps ) => {
            })
 
            const result: CreateTripResponse= await response.json();
-           console.log(result?.id);
            if(result?.id) navigate(`/trips/${result?.id}`)
            else console.error('Failed to generate a trip')
        } catch (e) {
