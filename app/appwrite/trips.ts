@@ -2,25 +2,24 @@ import { Query } from "appwrite"
 import { appwriteConfig, database } from "./client"
 
 export const getAllTrips=async(limit:number,offset:number)=>{
-    const alltrips=await database.listDocuments(
+    const allTrips=await database.listDocuments(
         appwriteConfig.databaseId,
 
         appwriteConfig.tripCollectionId,
         [
             Query.limit(limit),
             Query.offset(offset),
-            Query.orderDesc("$createdAt")
         ]
-    )
+    );
 
-    if(alltrips.total ===0){
+    if(allTrips.total === 0){
         console.log('No trips found')
-        return { alltrips: [], total: 0 }
+        return { allTrips: [], total: 0 }
     }
 
     return{
-        alltrips: alltrips.documents,
-        total: alltrips.total
+        allTrips: allTrips.documents,
+        total: allTrips.total
     }
 
     

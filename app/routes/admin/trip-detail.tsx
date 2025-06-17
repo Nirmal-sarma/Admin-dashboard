@@ -1,12 +1,11 @@
 import React from 'react'
 import type { LoaderFunctionArgs } from 'react-router'
 import { getAllTrips, getTripById } from '../../appwrite/trips';
-import type { Route } from '../../+types/root';
+import type { Route } from './+types/dashboard';
 import { cn, getFirstWord, parseTripData } from '../../lib/utils';
 import { Header, InfoPill, TripCard } from 'components';
 import { load } from '@syncfusion/ej2-react-charts';
 import { ChipDirective, ChipListComponent, ChipsDirective } from '@syncfusion/ej2-react-buttons';
-import { allTrips } from '~/constants';
 
 export const loader = async ({ params }: LoaderFunctionArgs) => {
     const { tripId } = params;
@@ -20,20 +19,16 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
 
     return {
         trip,
-        allTrips: trips.alltrips.map(({ $id, tripDetails, imageUrls }) => ({
+        allTrips: trips.allTrips.map(({ $id, tripDetail, imageUrl }) => ({
             id: $id,
-            ...parseTripData(tripDetails),
-            imageUrl: imageUrls ?? [],
+            tripDetail: parseTripData(tripDetail),
+            imageUrl: imageUrl ?? '',
         }))
     };
 }
 
-const TripDetail = ({ loaderData }: {
-    loaderData: {
-        allTrips: Trip[]; trip: any
-    }
-}) => {
-
+const TripDetail = ({ loaderData }: Route.ComponentProps) => {
+    console.log({loaderData});
     const imageUrl = loaderData?.trip.imageUrl || [];
     const tripData = parseTripData(loaderData?.trip.tripDetail);
     const { name,
@@ -62,8 +57,8 @@ const TripDetail = ({ loaderData }: {
         { title: 'Weather Info', items: weatherInfo }
     ];
 
-    const alltrips = loaderData?.allTrips as Trip[] || [];
-    console.log(allTrips)
+    const allTrips = loaderData?.allTrips;
+    console.log(tripData)
     return (
         <main className="travel-detail wrapper">
             <Header
@@ -85,7 +80,7 @@ const TripDetail = ({ loaderData }: {
                     </div>
                 </header>
                 <section className="gallery">
-                    {imageUrl && imageUrl.map((url: string, index: number) => (
+                    {imageUrl.map((url: string, index: number) => (
                         <img src={url}
                             key={index}
                             className={cn('w-full rounded-xl object-cover', index === 0 ? 'md:col-span-2 md:row-span-2 h-[330px]' : 'md:row-span-1 h-[150px]')} />
@@ -177,14 +172,14 @@ const TripDetail = ({ loaderData }: {
                 <section className='flex flex-col gap-6'>
                     <h2 className='p-24-semibold text-dark-100'> Popular Trips</h2>
                     <div className='trip-grid'>
-                        {allTrips.map((trip) => (
+                        {allTrips.map((trip:any) => (
                             <TripCard
                                 key={trip.id}
                                 id={trip.id.toString()}
                                 name={trip.name}
-                                imageUrl={trip.imageUrls[0]}
-                                location={trip.itinerary?.[0]?.location || ''}
-                                tags={[trip.tags[0], trip.tags[1]]}
+                                imageUrl={trip.imageUrl[0]}
+                                location={trip.tripDetail.itinerary?.[0]?.location || ''}
+                                tags={[trip.tripDetail.travelStyle, trip.tripDetail.groupType]}
                                 price={trip.estimatedPrice}
                             />
                         ))}

@@ -3,7 +3,7 @@ import React from 'react'
 const InfoPill = ({text,image}:InfoPillProps) => {
   return (
     <figure className="info-pill">
-      {image && <img src={image} alt={text} />}
+      {<img src={image} alt={text} />}
       <figcaption>{text}</figcaption>
     </figure>
   )
