@@ -21,7 +21,7 @@ export const storeUserData = async () => {
         const user = await account.get();
         if (!user) throw new Error("User not found");
 
-        const { providerAccessToken } = (await account.getSession("current")) || {};
+        const { providerAccessToken } = (await account.getSession('current')) || {};
         const profilePicture = providerAccessToken
             ? await getGooglePicture(providerAccessToken)
             : null;
@@ -77,7 +77,7 @@ export const loginWithGoogle = async () => {
 
 export const logoutUser = async () => {
     try {
-        await account.deleteSession("current");
+        await account.deleteSession('current');
     } catch (error) {
         console.error("Error during logout:", error);
     }

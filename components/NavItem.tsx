@@ -1,18 +1,34 @@
-import React from 'react'
-import { Link, NavLink, useLoaderData, useNavigate } from 'react-router'
-import { logoutUser } from '~/appwrite/auth'
+import React, { useEffect, useState } from 'react'
+import { Link, NavLink, Route, useLoaderData, useNavigate, type LoaderFunctionArgs } from 'react-router'
+import { getExistingUser, logoutUser } from '~/appwrite/auth'
+import { account } from '~/appwrite/client'
 import { sidebarItems } from '~/constants'
 import { cn } from '~/lib/utils'
 
-const NavItem = ({ handleClick }: { handleClick?: () => void }) => {
-  const user = useLoaderData();
-  const navigate = useNavigate();
+const loader=async(args: LoaderFunctionArgs)=>{
+  const user=await account.get();
+  if(!user.$id){
+    return {'info':`User don't exist`}
+  }
+  return user;
+}
 
+const NavItem:React.FC = ({ handleClick}: { handleClick?: () => void}) => {
+  // const user = useLoaderData() as User;
+  const navigate = useNavigate();
+  // console.log(user);
   const handleLogout = async () => {
     await logoutUser();
     navigate('/signIn');
   }
+  const [user, setUser] = useState<any>(null);
 
+  useEffect(() => {
+    account.get()
+      .then(setUser)
+      .catch(() => setUser(null));
+  }, []);
+  console.log(user)
   return (
     <section className='nav-items'>
       <Link to='/' className='Link-logo'>
