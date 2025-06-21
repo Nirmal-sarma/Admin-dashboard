@@ -1,6 +1,7 @@
 import { reactRouter } from "@react-router/dev/vite";
 import { sentryReactRouter, type SentryReactRouterBuildOptions } from "@sentry/react-router";
 import tailwindcss from "@tailwindcss/vite";
+import path from "path";
 import { defineConfig } from "vite";
 import tsconfigPaths from "vite-tsconfig-paths";
 
@@ -20,6 +21,11 @@ export default defineConfig(config => {
   sentryConfig,
   ssr:{
     noExternal:[/@syncfusion/]
-  }
+  },
+  resolve: {
+      alias: {
+        components: path.resolve(__dirname, "components"),
+      },
+    },
   };
 });
