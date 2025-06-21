@@ -28,7 +28,6 @@ const NavItem:React.FC = ({ handleClick}: { handleClick?: () => void}) => {
       .then(setUser)
       .catch(() => setUser(null));
   }, []);
-  console.log(user)
   return (
     <section className='nav-items'>
       <Link to='/' className='Link-logo'>
