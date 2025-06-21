@@ -1,4 +1,4 @@
-import { Header } from 'components'
+import { Header } from 'components/index'
 import React from 'react'
 import { GridComponent, ColumnsDirective, ColumnDirective } from '@syncfusion/ej2-react-grids'
 import { cn, formatDate } from '~/lib/utils'

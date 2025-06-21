@@ -1,4 +1,6 @@
-import { StatsCard, TripCard } from 'components'
+import StatsCard from 'components/StatsCard'
+import TripCard  from 'components/TripCard'
+
 import Header from 'components/Header'
 import React from 'react'
 import { getAllUsers, getUser } from '~/appwrite/auth'

@@ -3,7 +3,8 @@ import { Outlet, redirect } from 'react-router';
 import { SidebarComponent } from "@syncfusion/ej2-react-navigations";
 import { account } from '~/appwrite/client';
 import { getExistingUser, storeUserData } from '~/appwrite/auth';
-import { MobileSidebar, NavItems } from "components"
+import NavItems from "components/NavItem"
+import MobileSidebar from 'components/MobileSidebar';
 
 
 export async function clientLoader() {

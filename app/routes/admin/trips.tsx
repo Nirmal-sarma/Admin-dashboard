@@ -5,7 +5,9 @@ import type { Route } from './+types/trips'
 import { useState } from "react";
 import { PagerComponent } from "@syncfusion/ej2-react-grids";
 import { load } from "@syncfusion/ej2-react-charts";
-import { Header, TripCard } from "components";
+import TripCard from "components/TripCard";
+import Header from "components/Header";
+
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
     const limit = 4;

@@ -1,5 +1,7 @@
 import { ComboBoxComponent } from '@syncfusion/ej2-react-dropdowns'
-import { Header } from 'components'
+// Update the import path below to the correct location of your Header component.
+// For example, if Header is in 'components/Header.tsx', use:
+import Header from 'components/Header'
 import React, { useState } from 'react'
 import type { Route } from './+types/dashboard';
 import { comboBoxItems, groupTypes, interests, selectItems, travelStyles } from '~/constants';
