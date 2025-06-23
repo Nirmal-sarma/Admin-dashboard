@@ -1,4 +1,4 @@
-import { ID, OAuthProvider, Query } from "appwrite";
+import { ID, OAuthProvider, Permission, Query, Role } from "appwrite";
 import { account, database, appwriteConfig } from "~/appwrite/client";
 import { redirect } from "react-router";
 
@@ -7,8 +7,9 @@ export const getExistingUser = async (id: string) => {
         const { documents, total } = await database.listDocuments(
             appwriteConfig.databaseId,
             appwriteConfig.userCollectionId,
-            [Query.equal("accountId", id)]
+            [Query.equal('accountId', id)]
         );
+        console.log({'document':documents})
         return total > 0 ? documents[0] : null;
     } catch (error) {
         console.error("Error fetching user:", error);
@@ -20,12 +21,15 @@ export const storeUserData = async () => {
     try {
         const user = await account.get();
         if (!user) throw new Error("User not found");
-
+        
+        
+        console.log({'storedata':user});
         const { providerAccessToken } = (await account.getSession('current')) || {};
+        console.log(providerAccessToken)
         const profilePicture = providerAccessToken
             ? await getGooglePicture(providerAccessToken)
             : null;
-
+         
         const createdUser = await database.createDocument(
             appwriteConfig.databaseId,
             appwriteConfig.userCollectionId,
@@ -36,9 +40,14 @@ export const storeUserData = async () => {
                 name: user.name,
                 imageUrl: profilePicture,
                 joinedAt: new Date().toISOString(),
-            }
+            },
+            [
+        Permission.read(Role.user(user.$id)),
+        Permission.update(Role.user(user.$id)),
+        Permission.delete(Role.user(user.$id)),
+    ]
         );
-
+          console.log('user is created...')
         if (!createdUser.$id) redirect("/signIn");
 
     
@@ -65,6 +74,7 @@ const getGooglePicture = async (accessToken: string) => {
 
 export const loginWithGoogle = async () => {
     try {
+        console.log("It is running fine....")
         account.createOAuth2Session(
             OAuthProvider.Google,
             `${window.location.origin}/dashboard`,

@@ -9,17 +9,23 @@ import MobileSidebar from 'components/MobileSidebar';
 
 export async function clientLoader() {
   try {
+    console.log("running ...")
     const user = await account.get();
+    console.log({'user': user.$id})
     if (!user.$id) throw redirect('/signIn');
 
-    const existingUser = await getExistingUser(user.$id);
-
-    if (existingUser?.status === 'user') {
-         throw redirect('/');
+    let existingUser = await getExistingUser(user.$id);
+   console.log({'existingUser':existingUser});
+    // if (existingUser?.status === "user") {
+    //      throw redirect('/');
+    // }
+    if (!existingUser) {
+      await storeUserData();
+      existingUser = await getExistingUser(user.$id); // Fetch the newly created user
     }
-    return existingUser?.$id ? existingUser : await storeUserData();
+    return existingUser;
   } catch (error) {
-      console.log("Error in clientLoader")
+      console.log("Error in clientLoader.....",error)
       throw redirect('/signIn')
   }
 }

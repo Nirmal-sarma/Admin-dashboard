@@ -5,29 +5,29 @@ import { account } from '~/appwrite/client'
 import { sidebarItems } from '~/constants'
 import { cn } from '~/lib/utils'
 
-const loader=async(args: LoaderFunctionArgs)=>{
-  const user=await account.get();
-  if(!user.$id){
-    return {'info':`User don't exist`}
-  }
-  return user;
-}
+// const loader=async(args: LoaderFunctionArgs)=>{
+//   const user=await account.get();
+//   if(!user.$id){
+//     return {'info':`User don't exist`}
+//   }
+//   return user;
+// }
 
 const NavItem:React.FC = ({ handleClick}: { handleClick?: () => void}) => {
-  // const user = useLoaderData() as User;
+  const user = useLoaderData();
   const navigate = useNavigate();
-  // console.log(user);
+  console.log({'navitem':user});
   const handleLogout = async () => {
     await logoutUser();
     navigate('/signIn');
   }
-  const [user, setUser] = useState<any>(null);
+  // const [user, setUser] = useState<any>(null);
 
-  useEffect(() => {
-    account.get()
-      .then(setUser)
-      .catch(() => setUser(null));
-  }, []);
+  // useEffect(() => {
+  //   account.get()
+  //     .then(setUser)
+  //     .catch(() => setUser(null));
+  // }, []);
   return (
     <section className='nav-items'>
       <Link to='/' className='Link-logo'>
