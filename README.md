@@ -1,4 +1,4 @@
-# Welcome to React Router!
+# Welcome to the Project!
 
 A modern, production-ready template for building full-stack React applications using React Router.
 
@@ -41,6 +41,15 @@ Create a production build:
 ```bash
 npm run build
 ```
+## Some visuals of the UI
+The Here are some UI of my project which cannot be deployed due to no free tier deployment for gemini-api.
+  1.Home page
+  <img width="1920" height="950" alt="Homepage_1" src="https://github.com/user-attachments/assets/fdcd3f14-db28-4874-a3a0-169beb9b8b10" />
+  <img width="1920" height="1080" alt="Homepage_2" src="https://github.com/user-attachments/assets/c48d8ca4-d030-40e1-91cd-78d314056d41" />
+  <img width="1890" height="954" alt="HomePage_3" src="https://github.com/user-attachments/assets/d826d994-2cf1-4042-bd26-3e591d77e2cf" />
+
+
+
 
 ## Deployment
 
