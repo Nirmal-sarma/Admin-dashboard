@@ -17,10 +17,10 @@ A modern, production-ready template for building full-stack React applications u
 ## Some visuals of the UI
 The Here are some UI of my project which cannot be deployed due to no free tier deployment for gemini-api.
 
-<img width="710" height="591" alt="project_1" src="https://github.com/user-attachments/assets/6fde8daa-2659-4040-9f95-4d30519234bc" />
-<img width="604" height="599" alt="project_2" src="https://github.com/user-attachments/assets/7fee8f8d-19f4-44ae-bc5d-93f9213f13e1" />
+ <img width="710" height="591" alt="project_1" src="https://github.com/user-attachments/assets/6fde8daa-2659-4040-9f95-4d30519234bc" />
+ <img width="604" height="599" alt="project_2" src="https://github.com/user-attachments/assets/7fee8f8d-19f4-44ae-bc5d-93f9213f13e1" />
 <img width="801" height="777" alt="project_3" src="https://github.com/user-attachments/assets/0577319d-ddc9-4285-a361-ebdc480c3186" />
-<img width="618" height="641" alt="project_4" src="https://github.com/user-attachments/assets/a3095cc6-201f-4f41-927d-78db41d8b22d" />
+ <img width="618" height="641" alt="project_4" src="https://github.com/user-attachments/assets/a3095cc6-201f-4f41-927d-78db41d8b22d" />
 
 
 
