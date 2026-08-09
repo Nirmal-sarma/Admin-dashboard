@@ -23,6 +23,7 @@
     "@syncfusion/ej2-react-navigations": "^29.2.8",
     "@syncfusion/ej2-react-splitbuttons": "^29.2.4",
     "appwrite": "^18.1.1",
+    "canvas-confetti": "^1.9.3",
     "clsx": "^2.1.1",
     "dayjs": "^1.11.13",
     "days": "^1.1.1",
@@ -31,6 +32,7 @@
     "react-dom": "^19.1.0",
     "react-router": "^7.5.3",
     "react-router-dom": "^7.6.2",
+    "stripe": "^18.2.1",
     "tailwind-merge": "^3.3.0"
   },
   "devDependencies": {

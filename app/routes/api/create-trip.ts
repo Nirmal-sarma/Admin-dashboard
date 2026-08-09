@@ -81,7 +81,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
 
         const imageJson = await imageResponse.json();
 
-        const imageUrl = imageJson.results?.slice(0, 3)
+        const imageUrls = imageJson.results?.slice(0, 3)
             .map((result: any) => result.urls?.regular || null) || [];
 
         const result = await database.createDocument(
@@ -89,9 +89,9 @@ export const action = async ({ request }: ActionFunctionArgs) => {
             appwriteConfig.tripCollectionId,
             ID.unique(),
             {
-                tripDetail: JSON.stringify(trip),
+                tripDetails: JSON.stringify(trip),
                 createdAt: new Date().toISOString(),
-                imageUrl,
+                imageUrls,
                 userId,
             }
         )
