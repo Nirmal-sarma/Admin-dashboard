@@ -1,4 +1,4 @@
-import { ID, OAuthProvider, Query } from "appwrite";
+import { ID, OAuthProvider, Permission, Query, Role } from "appwrite";
 import { account, database, appwriteConfig } from "~/appwrite/client";
 import { redirect } from "react-router";
 
@@ -7,8 +7,9 @@ export const getExistingUser = async (id: string) => {
         const { documents, total } = await database.listDocuments(
             appwriteConfig.databaseId,
             appwriteConfig.userCollectionId,
-            [Query.equal("accountId", id)]
+            [Query.equal('accountId', id)]
         );
+        console.log({'document':documents})
         return total > 0 ? documents[0] : null;
     } catch (error) {
         console.error("Error fetching user:", error);
@@ -20,12 +21,20 @@ export const storeUserData = async () => {
     try {
         const user = await account.get();
         if (!user) throw new Error("User not found");
+<<<<<<< HEAD
 
         const { providerAccessToken } = (await account.getSession("current")) || {};
+=======
+        
+        
+        console.log({'storedata':user});
+        const { providerAccessToken } = (await account.getSession('current')) || {};
+        console.log(providerAccessToken)
+>>>>>>> 3cecaebbbd6c52fd618ebe6772ad651b4376ab3e
         const profilePicture = providerAccessToken
             ? await getGooglePicture(providerAccessToken)
             : null;
-
+         
         const createdUser = await database.createDocument(
             appwriteConfig.databaseId,
             appwriteConfig.userCollectionId,
@@ -36,10 +45,22 @@ export const storeUserData = async () => {
                 name: user.name,
                 imageUrl: profilePicture,
                 joinedAt: new Date().toISOString(),
-            }
+            },
+            [
+        Permission.read(Role.user(user.$id)),
+        Permission.update(Role.user(user.$id)),
+        Permission.delete(Role.user(user.$id)),
+    ]
         );
+<<<<<<< HEAD
 
         if (!createdUser.$id) redirect("/sign-in");
+=======
+          console.log('user is created...')
+        if (!createdUser.$id) redirect("/signIn");
+
+    
+>>>>>>> 3cecaebbbd6c52fd618ebe6772ad651b4376ab3e
     } catch (error) {
         console.error("Error storing user data:", error);
     }
@@ -63,7 +84,11 @@ const getGooglePicture = async (accessToken: string) => {
 
 export const loginWithGoogle = async () => {
     try {
+<<<<<<< HEAD
         console.log('runing...')
+=======
+        console.log("It is running fine....")
+>>>>>>> 3cecaebbbd6c52fd618ebe6772ad651b4376ab3e
         account.createOAuth2Session(
             OAuthProvider.Google,
             `${window.location.origin}/`,

@@ -5,6 +5,7 @@ import {account} from "~/appwrite/client";
 import {getExistingUser, storeUserData} from "~/appwrite/auth";
 
 export async function clientLoader() {
+<<<<<<< HEAD
     try {
         const user = await account.get();
 
@@ -21,6 +22,28 @@ export async function clientLoader() {
         console.log('Error in clientLoader', e)
         return redirect('/sign-in')
     }
+=======
+  try {
+    console.log("running ...")
+    const user = await account.get();
+    console.log({'user': user.$id})
+    if (!user.$id) throw redirect('/signIn');
+
+    let existingUser = await getExistingUser(user.$id);
+   console.log({'existingUser':existingUser});
+    // if (existingUser?.status === "user") {
+    //      throw redirect('/');
+    // }
+    if (!existingUser) {
+      await storeUserData();
+      existingUser = await getExistingUser(user.$id); // Fetch the newly created user
+    }
+    return existingUser;
+  } catch (error) {
+      console.log("Error in clientLoader.....",error)
+      throw redirect('/signIn')
+  }
+>>>>>>> 3cecaebbbd6c52fd618ebe6772ad651b4376ab3e
 }
 
 const AdminLayout = () => {
