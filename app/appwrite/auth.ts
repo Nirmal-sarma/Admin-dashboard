@@ -21,11 +21,16 @@ export const storeUserData = async () => {
     try {
         const user = await account.get();
         if (!user) throw new Error("User not found");
+<<<<<<< HEAD
+
+        const { providerAccessToken } = (await account.getSession("current")) || {};
+=======
         
         
         console.log({'storedata':user});
         const { providerAccessToken } = (await account.getSession('current')) || {};
         console.log(providerAccessToken)
+>>>>>>> 3cecaebbbd6c52fd618ebe6772ad651b4376ab3e
         const profilePicture = providerAccessToken
             ? await getGooglePicture(providerAccessToken)
             : null;
@@ -47,10 +52,15 @@ export const storeUserData = async () => {
         Permission.delete(Role.user(user.$id)),
     ]
         );
+<<<<<<< HEAD
+
+        if (!createdUser.$id) redirect("/sign-in");
+=======
           console.log('user is created...')
         if (!createdUser.$id) redirect("/signIn");
 
     
+>>>>>>> 3cecaebbbd6c52fd618ebe6772ad651b4376ab3e
     } catch (error) {
         console.error("Error storing user data:", error);
     }
@@ -74,10 +84,14 @@ const getGooglePicture = async (accessToken: string) => {
 
 export const loginWithGoogle = async () => {
     try {
+<<<<<<< HEAD
+        console.log('runing...')
+=======
         console.log("It is running fine....")
+>>>>>>> 3cecaebbbd6c52fd618ebe6772ad651b4376ab3e
         account.createOAuth2Session(
             OAuthProvider.Google,
-            `${window.location.origin}/dashboard`,
+            `${window.location.origin}/`,
             `${window.location.origin}/404`
         );
     } catch (error) {
@@ -87,7 +101,7 @@ export const loginWithGoogle = async () => {
 
 export const logoutUser = async () => {
     try {
-        await account.deleteSession('current');
+        await account.deleteSession("current");
     } catch (error) {
         console.error("Error during logout:", error);
     }
@@ -96,7 +110,7 @@ export const logoutUser = async () => {
 export const getUser = async () => {
     try {
         const user = await account.get();
-        if (!user) return redirect("/signIn");
+        if (!user) return redirect("/sign-in");
 
         const { documents } = await database.listDocuments(
             appwriteConfig.databaseId,
@@ -107,7 +121,7 @@ export const getUser = async () => {
             ]
         );
 
-        return documents.length > 0 ? documents[0] : redirect("/signIn");
+        return documents.length > 0 ? documents[0] : redirect("/sign-in");
     } catch (error) {
         console.error("Error fetching user:", error);
         return null;
